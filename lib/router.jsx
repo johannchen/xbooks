@@ -9,6 +9,18 @@ FlowRouter.route('/', {
     });
   }
 });
+
+FlowRouter.route('/search', {
+  name: 'search',
+  action: function(params) {
+    /* The key 'content' is now a function */
+    ReactLayout.render(MainLayout, {
+      content() {
+        return <Search />;
+      }
+    });
+  }
+});
 /*
 FlowRouter.route('/verse/:_id', {
   name: 'verse',

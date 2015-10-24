@@ -2,6 +2,7 @@ let {
   AppCanvas,
   AppBar,
   IconMenu,
+  IconButton,
   RaisedButton,
   FlatButton,
   LinearProgress,
@@ -20,6 +21,7 @@ Home = React.createClass({
       <AppCanvas>
           <AppBar
             title="XBooks"
+            iconElementLeft={<IconButton iconClassName="material-icons" onTouchTap={this.goSearch}>search</IconButton>}
             iconElementRight={
               <div>
                 <RaisedButton label="Sign Up" primary={true} onTouchTap={this.handleSignUp}  />
@@ -30,5 +32,9 @@ Home = React.createClass({
           <p>Christian Books Exchange within Your Church.</p>
       </AppCanvas>
     );
+  },
+
+  goSearch() {
+    FlowRouter.go('/search');
   }
 });
