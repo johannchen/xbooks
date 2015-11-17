@@ -1,3 +1,21 @@
+Meteor.publish("mybooks", function() {
+  return MyBooks.find({ownerId: this.userId});
+});
+
+Meteor.publish("books", function() {
+  return Books.find();
+});
+
+/*
+Meteor.publish("books", function(query) {
+  // TODO: query author, isbn
+  // filter books by site (zip, church)?
+  var q = new RegExp(query, 'i');
+  return Books.find({$or: [{title: q}, {authors: q}]});
+});
+*/
+
+
 Meteor.publish('booksSearch', function(query) {
   var self = this;
   try {
