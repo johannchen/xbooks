@@ -1,27 +1,60 @@
-Books = new Mongo.Collection('books', {
-  transform: function(doc) {
-    doc.owners = MyBooks.find({
-      bookId: doc._id
-    });
-    return doc;
-  }
-});
+Books = new Mongo.Collection('books');
+
 
 Meteor.methods({
   addGoogleBook: function(book) {
     // TODO: avoid duplicate in Books
-    Books.insert(book, function(err, id) {
-      MyBooks.insert({
-        bookId: id,
-        ownerId: Meteor.userId(),
-        ownerName: Meteor.user().username,
-        /*
-        title: book.title,
-        authors: book.authors,
-        thumb: book.thumb,
-        */
-        createdAt: Date.now()
-      })
+    gbook = book;
+    gbook.owners =[{
+      ownerId: Meteor.userId(),
+      exchange: true,
+      createdAt: Date.now()
+    }];
+    Books.insert(gbook);
+  },
+
+  addOwner: function(id) {
+    Books.update(id, {
+      $push: {
+        owners: {
+          ownerId: Meteor.userId(),
+          exchange: true,
+          createdAt: Date.now()
+        }
+      }
+    });
+  },
+
+  toggleExchange: function(id, ownerId, toggle) {
+    Books.update({_id: id, "owners.ownerId": ownerId}, {
+      $set: {"owners.$.exchange": toggle}
+    });
+  },
+
+  exchange: function(requesterId, requesterBookId, responderId, responderBookId) {
+    Books.update(requesterBookId, {
+      $push: {
+        owners: {
+          ownerId: responderId,
+          exchange: false,
+          createdAt: Date.now()
+        }
+      },
+      $pull: {
+        owners: {ownerId: requesterId}
+      }
+    });
+    Books.update(responderBookId, {
+      $push: {
+        owners: {
+          ownerId: requesterId,
+          exchange: false,
+          createdAt: Date.now()
+        }
+      },
+      $pull: {
+        owners: {ownerId: responderId}
+      }
     });
   }
 });

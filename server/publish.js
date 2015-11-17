@@ -1,5 +1,5 @@
 Meteor.publish("mybooks", function() {
-  return MyBooks.find({ownerId: this.userId});
+  return Books.find({"owners.ownerId": this.userId});
 });
 
 Meteor.publish("books", function() {
