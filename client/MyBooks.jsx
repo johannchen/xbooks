@@ -6,14 +6,9 @@ MyBooks = React.createClass({
 
   getMeteorData() {
     return {
-      loaded: this.bookSubReady(),
-      books: MyBooks.find().fetch()
+      loaded: Meteor.subscribe('mybooks').ready(),
+      books: Books.find({}, {sort: {"owners.createdAt": -1}}).fetch()
     }
-  },
-  bookSubReady() {
-    let booksHandle = Meteor.subscribe('books');
-    let myBooksHandle = Meteor.subscribe('mybooks');
-    return booksHandle.ready() && myBooksHandle.ready();
   },
   render() {
     return (
@@ -33,7 +28,8 @@ MyBooks = React.createClass({
 
   renderBooks() {
     return this.data.books.map( (mybook) => {
-      return <Book book={mybook.book} key={mybook._id} />;
+      let me = mybook.owners.filter( (owner) => { return owner.ownerId == this.props.currentUser._id } );
+      return <Book book={mybook} toExchange={me[0].exchange} mybook={true} key={mybook._id} />;
     });
   },
 

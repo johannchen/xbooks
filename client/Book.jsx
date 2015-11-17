@@ -5,6 +5,7 @@ let { Card,
   FlatButton,
   FontIcon,
   IconButton,
+  Checkbox,
   TextField
 } = MUI;
 
@@ -31,7 +32,15 @@ Book = React.createClass({
             </div>
           </CardText>
           <CardActions>
-            <FlatButton label="Add To My Books" primary={true} onTouchTap={this.handleAddBook} />
+            { this.props.mybook ?
+              <Checkbox
+                name="exchange"
+                value="exchange"
+                label="exchange"
+                defaultChecked={this.props.toExchange}
+                onCheck={this.toggleExchange} />
+            : <FlatButton label="Add To My Books" primary={true} onTouchTap={this.handleAddBook} />
+            }
           </CardActions>
         </Card>
       </div>
@@ -45,5 +54,9 @@ Book = React.createClass({
   handleAddBook() {
     Meteor.call('addGoogleBook', this.props.book);
     FlowRouter.go('/');
+  },
+
+  toggleExchange() {
+    Meteor.call('toggleExchange', this.props.book._id, !this.props.toExchange);
   }
 });

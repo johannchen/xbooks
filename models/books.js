@@ -5,7 +5,7 @@ Meteor.methods({
   addGoogleBook: function(book) {
     // TODO: avoid duplicate in Books
     gbook = book;
-    gbook.owners =[{
+    gbook.owners = [{
       ownerId: Meteor.userId(),
       exchange: true,
       createdAt: Date.now()
@@ -25,9 +25,9 @@ Meteor.methods({
     });
   },
 
-  toggleExchange: function(id, ownerId, toggle) {
-    Books.update({_id: id, "owners.ownerId": ownerId}, {
-      $set: {"owners.$.exchange": toggle}
+  toggleExchange: function(id, toggleValue) {
+    Books.update({_id: id, "owners.ownerId": Meteor.userId()}, {
+      $set: {"owners.$.exchange": toggleValue}
     });
   },
 
