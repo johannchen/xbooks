@@ -33,13 +33,22 @@ Book = React.createClass({
           </CardText>
           <CardActions>
             { this.props.mybook ?
-              <Checkbox
-                name="exchange"
-                value="exchange"
-                label="exchange"
-                defaultChecked={this.props.toExchange}
-                onCheck={this.toggleExchange} />
-            : <FlatButton label="Add To My Books" primary={true} onTouchTap={this.handleAddBook} />
+              <div>
+                <Checkbox
+                  name="exchange"
+                  value="exchange"
+                  label="to exchange"
+                  defaultChecked={this.props.toExchange}
+                  onCheck={this.toggleExchange} />
+                <FlatButton label="Remove Book" onTouchTap={this.handleRemoveMyBook} />
+              </div>
+              :
+              <div>
+                { this.props.toRequest ?
+                  <FlatButton label="Request Book" primary={true} onTouchTap={this.handleRequestBook} />
+                  : <FlatButton label="Add To My Books" primary={true} onTouchTap={this.handleAddBook} />
+                }
+              </div>
             }
           </CardActions>
         </Card>
@@ -53,7 +62,17 @@ Book = React.createClass({
 
   handleAddBook() {
     Meteor.call('addBook', this.props.book);
-    FlowRouter.go('/');
+    FlowRouter.go('/mybooks');
+  },
+
+  handleRemoveMyBook() {
+    if (confirm('Are you sure to remove this book?')) {
+      Meteor.call('removeMyBook', this.props.book._id);
+    }
+  },
+
+  handleRequestBook() {
+
   },
 
   toggleExchange() {

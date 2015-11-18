@@ -40,7 +40,7 @@ ExchangePage = React.createClass({
 
   renderBooks() {
     return this.data.books.map( (book) => {
-      return <Book book={book} mybook={false} key={book._id} />;
+      return <Book book={book} mybook={false} toRequest={true} key={book._id} />;
     });
   },
 

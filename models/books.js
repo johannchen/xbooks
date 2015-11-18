@@ -31,14 +31,10 @@ Meteor.methods({
     }
   },
 
-  addOwner: function(id) {
+  removeMyBook: function(id) {
     Books.update(id, {
-      $push: {
-        owners: {
-          ownerId: Meteor.userId(),
-          exchange: true,
-          createdAt: Date.now()
-        }
+      $pull: {
+        owners: {ownerId: Meteor.userId()}
       }
     });
   },
