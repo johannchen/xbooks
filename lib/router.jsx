@@ -10,13 +10,13 @@ FlowRouter.route('/', {
   }
 });
 
-FlowRouter.route('/search', {
-  name: 'search',
+FlowRouter.route('/add-book', {
+  name: 'add-book',
   action: function(params) {
     /* The key 'content' is now a function */
     ReactLayout.render(MainLayout, {
       content() {
-        return <Search />;
+        return <AddBook />;
       }
     });
   }

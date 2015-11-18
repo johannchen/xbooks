@@ -2,15 +2,33 @@ Books = new Mongo.Collection('books');
 
 
 Meteor.methods({
-  addGoogleBook: function(book) {
-    // TODO: avoid duplicate in Books
-    gbook = book;
-    gbook.owners = [{
-      ownerId: Meteor.userId(),
-      exchange: true,
-      createdAt: Date.now()
-    }];
-    Books.insert(gbook);
+  addBook: function(book) {
+    let b = Books.findOne({isbn10: book.isbn10})
+    if (b) {
+      // add owner
+      // avoid duplicate owner
+      if (b.owners.findIndex( (owner) => { return owner.ownerId === Meteor.userId(); } ) === -1) {
+        Books.update(b._id, {
+          $push: {
+            owners: {
+              ownerId: Meteor.userId(),
+              exchange: true,
+              createdAt: Date.now()
+            }
+          }
+        });
+      } else {
+        console.log("you already own this book.")
+      }
+    } else {
+      gbook = book;
+      gbook.owners = [{
+        ownerId: Meteor.userId(),
+        exchange: true,
+        createdAt: Date.now()
+      }];
+      Books.insert(gbook);
+    }
   },
 
   addOwner: function(id) {

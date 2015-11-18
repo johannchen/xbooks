@@ -52,7 +52,7 @@ Book = React.createClass({
   },
 
   handleAddBook() {
-    Meteor.call('addGoogleBook', this.props.book);
+    Meteor.call('addBook', this.props.book);
     FlowRouter.go('/');
   },
 

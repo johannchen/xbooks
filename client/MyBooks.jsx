@@ -17,7 +17,8 @@ MyBooks = React.createClass({
           <div>
             <AppBar
               title="My Books"
-              iconElementLeft={<IconButton iconClassName="material-icons" onTouchTap={this.goSearch}>add</IconButton>} />
+              iconElementLeft={<IconButton iconClassName="material-icons" onTouchTap={this.goAddBook}>add</IconButton>}
+              iconElementRight={<IconButton iconClassName="material-icons" onTouchTap={this.logout}>exit_to_app</IconButton>} />
             {this.renderBooks()}
           </div>
           : ''
@@ -33,7 +34,11 @@ MyBooks = React.createClass({
     });
   },
 
-  goSearch() {
-    FlowRouter.go('/search');
+  goAddBook() {
+    FlowRouter.go('/add-book');
+  },
+
+  logout() {
+    Meteor.logout();
   }
 });

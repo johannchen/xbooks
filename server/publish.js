@@ -2,21 +2,17 @@ Meteor.publish("mybooks", function() {
   return Books.find({"owners.ownerId": this.userId});
 });
 
-Meteor.publish("books", function() {
-  return Books.find();
-});
-
-/*
-Meteor.publish("books", function(query) {
-  // TODO: query author, isbn
-  // filter books by site (zip, church)?
+Meteor.publish("searchBooks", function(query) {
+  // TODO: query isbn
+  // filter books by site (zip, church, friends)?
+  // filter owner is not me
   var q = new RegExp(query, 'i');
   return Books.find({$or: [{title: q}, {authors: q}]});
 });
-*/
 
 
-Meteor.publish('booksSearch', function(query) {
+
+Meteor.publish('gbooks', function(query) {
   var self = this;
   try {
     var response = HTTP.get('https://www.googleapis.com/books/v1/volumes', {

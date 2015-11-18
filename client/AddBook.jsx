@@ -6,19 +6,20 @@ let {
   Styles } = MUI;
 let { Colors } = Styles;
 
-Search = React.createClass({
+AddBook = React.createClass({
   // This mixin makes the getMeteorData method work
   mixins: [ReactMeteorData],
 
   getMeteorData() {
-    let loaded = false;
+    let gbooksLoaded = false;
+    //let booksLoaded = false;
     if (this.state.query) {
-      let handle = Meteor.subscribe('booksSearch', this.state.query);
-      loaded = handle.ready();
+      gbooksLoaded = Meteor.subscribe('gbooks', this.state.query).ready();
+    //  booksLoaded = Meteor.subscribe('searchBooks', this.state.query).ready();
     }
     return {
-      loaded,
-      books: GoogleBooks.find().fetch()
+      gbooksLoaded,
+      gbooks: GoogleBooks.find().fetch()
     };
   },
   getInitialState() {
@@ -36,7 +37,7 @@ Search = React.createClass({
                 <FontIcon className="material-icons" color={Colors.grey50}>search</FontIcon>
               </IconButton>
               <TextField
-                hintText="Search Title"
+                hintText="Search Book Then Add"
                 ref="search"
                 underlineFocusStyle={{borderColor: Colors.amber900}}
                 onEnterKeyDown={this.handleSearch} />
@@ -45,19 +46,19 @@ Search = React.createClass({
           iconElementRight={<IconButton iconClassName="material-icons" onTouchTap={this.goHome}>home</IconButton>} />
         { this.state.query ?
           <div>
-            { this.data.loaded ?
-              <div>{this.renderBooks()}</div>
+            { this.data.gbooksLoaded ?
+              <div>{this.renderGbooks()}</div>
               : <p>Loading...</p>
             }
           </div>
           : ''
         }
-
       </div>
     );
   },
-  renderBooks() {
-    return this.data.books.map( (book) => {
+
+  renderGbooks() {
+    return this.data.gbooks.map( (book) => {
       return <Book book={book} key={book._id} />;
     });
   },
