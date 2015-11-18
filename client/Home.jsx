@@ -30,7 +30,7 @@ Home = React.createClass({
       <div>
         { this.data.currentUser ?
           <div>
-            <MyBooks currentUser={this.data.currentUser} />
+            <ExchangePage />
           </div>
         :
           <div>

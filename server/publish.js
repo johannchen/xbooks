@@ -10,7 +10,9 @@ Meteor.publish("searchBooks", function(query) {
   return Books.find({$or: [{title: q}, {authors: q}]});
 });
 
-
+Meteor.publish("exchangeBooks", function() {
+  return Books.find({"owners.exchange": true, "owners.ownerId": {$ne: this.userId}});
+});
 
 Meteor.publish('gbooks', function(query) {
   var self = this;

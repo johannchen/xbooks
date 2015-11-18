@@ -13,10 +13,20 @@ FlowRouter.route('/', {
 FlowRouter.route('/add-book', {
   name: 'add-book',
   action: function(params) {
-    /* The key 'content' is now a function */
     ReactLayout.render(MainLayout, {
       content() {
         return <AddBook />;
+      }
+    });
+  }
+});
+
+FlowRouter.route('/mybooks', {
+  name: 'mybooks',
+  action: function(params) {
+    ReactLayout.render(MainLayout, {
+      content() {
+        return <MyBooks />;
       }
     });
   }
