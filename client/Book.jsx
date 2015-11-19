@@ -6,13 +6,16 @@ let { Card,
   FontIcon,
   IconButton,
   Checkbox,
+  SelectField,
+  DropDownMenu,
   TextField
 } = MUI;
 
 Book = React.createClass({
   getInitialState() {
     return {
-      message: ''
+      message: '',
+      responder: ''
     }
   },
   render() {
@@ -45,7 +48,13 @@ Book = React.createClass({
               :
               <div>
                 { this.props.toRequest ?
-                  <FlatButton label="Request Book" primary={true} onTouchTap={this.handleRequestBook} />
+                  <div>
+                    <DropDownMenu ref="responder"
+                      displayMember="username"
+                      valueMember="_id"
+                      menuItems={this.props.book.ownersInfo} />
+                    <FlatButton label="Request Book" primary={true} onTouchTap={this.handleRequestBook} />
+                  </div>
                   : <FlatButton label="Add To My Books" primary={true} onTouchTap={this.handleAddBook} />
                 }
               </div>
@@ -71,8 +80,18 @@ Book = React.createClass({
     }
   },
 
-  handleRequestBook() {
 
+
+  selectOwner(event, selectedIndex, item) {
+
+  },
+
+  handleRequestBook() {
+    let index = this.refs.responder.state.selectedIndex;
+    // TODO: a better way to get value from dropdown menu without onChange?
+    let responderId = this.props.book.owners[index].ownerId;
+    //console.log(responderId);
+    Meteor.call('requestBook', this.props.book._id, responderId);
   },
 
   toggleExchange() {

@@ -14,6 +14,10 @@ Meteor.publish("exchangeBooks", function() {
   return Books.find({"owners.exchange": true, "owners.ownerId": {$ne: this.userId}});
 });
 
+Meteor.publish("people", function() {
+  return Meteor.users.find();
+});
+
 Meteor.publish('gbooks', function(query) {
   var self = this;
   try {

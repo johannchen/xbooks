@@ -1,4 +1,11 @@
-Books = new Mongo.Collection('books');
+Books = new Mongo.Collection('books', {
+  transform(doc) {
+    doc.ownersInfo = doc.owners.map( (owner) => {
+      return Meteor.users.findOne(owner.ownerId);
+    });
+    return doc;
+  }
+});
 
 
 Meteor.methods({

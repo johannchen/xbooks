@@ -22,6 +22,11 @@ ExchangePage = React.createClass({
               iconElementLeft={<IconButton iconClassName="material-icons">home</IconButton>}
               iconElementRight={
                 <div>
+                  <IconButton title="Exchanges" onTouchTap={this.goMyExchanges}>
+                    <FontIcon
+                      className="material-icons"
+                      color={Colors.grey50}>swap_horiz</FontIcon>
+                  </IconButton>
                   <IconButton title="My Books" onTouchTap={this.goMyBooks}>
                     <FontIcon
                       className="material-icons"
@@ -40,12 +45,16 @@ ExchangePage = React.createClass({
 
   renderBooks() {
     return this.data.books.map( (book) => {
-      return <Book book={book} mybook={false} toRequest={true} key={book._id} />;
+      return <Book book={book} toRequest={true} key={book._id} />;
     });
   },
 
   goMyBooks() {
     FlowRouter.go('/mybooks');
+  },
+
+  goMyExchanges() {
+    FlowRouter.go('/my-exchanges');
   },
 
   logout() {
