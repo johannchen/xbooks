@@ -55,7 +55,13 @@ Book = React.createClass({
                       menuItems={this.props.book.ownersInfo} />
                     <FlatButton label="Request Book" primary={true} onTouchTap={this.handleRequestBook} />
                   </div>
-                  : <FlatButton label="Add To My Books" primary={true} onTouchTap={this.handleAddBook} />
+                  :
+                  <div>
+                    { this.props.exchange ?
+                      <FlatButton label="Exchange" primary={true} onTouchTap={this.handleExchangeBook} />
+                      : <FlatButton label="Add To My Books" primary={true} onTouchTap={this.handleAddBook} />
+                    }
+                  </div>
                 }
               </div>
             }
@@ -80,6 +86,10 @@ Book = React.createClass({
     }
   },
 
+  toggleExchange() {
+    Meteor.call('toggleExchange', this.props.book._id, !this.props.toExchange);
+  },
+
   handleRequestBook() {
     let index = this.refs.responder.state.selectedIndex;
     // TODO: a better way to get value from dropdown menu without onChange?
@@ -87,10 +97,13 @@ Book = React.createClass({
     // TODO: avoid duplicate request from the same responder
     Meteor.call('requestBook', this.props.book._id, responderId);
     // TODO: email responder
-    FlowRouter.go('/my-exchanges');
+    FlowRouter.go('/my-requests');
   },
 
-  toggleExchange() {
-    Meteor.call('toggleExchange', this.props.book._id, !this.props.toExchange);
+  handleExchangeBook() {
+    Meteor.call('exchangeBook', this.props.exchange.requesterId, this.props.book._id, this.props.exchange.responderId, this.props.exchange.responderBookId);
+    Meteor.call('exchangeComplete', this.props.exchange._id, this.props.book._id);
+    FlowRouter.go('/my-exchanges');
   }
+
 });

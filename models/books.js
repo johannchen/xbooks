@@ -52,7 +52,7 @@ Meteor.methods({
     });
   },
 
-  exchange: function(requesterId, requesterBookId, responderId, responderBookId) {
+  exchangeBook: function(requesterId, requesterBookId, responderId, responderBookId) {
     Books.update(requesterBookId, {
       $push: {
         owners: {

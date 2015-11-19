@@ -3,6 +3,7 @@ Exchanges = new Mongo.Collection("exchanges", {
     doc.responderBook = Books.findOne(doc.responderBookId);
     doc.requesterBook = Books.findOne(doc.requesterBookId);
     doc.responder = Meteor.users.findOne(doc.responderId);
+    doc.requester = Meteor.users.findOne(doc.requesterId);
     return doc;
   }
 });
@@ -17,7 +18,7 @@ Meteor.methods({
       requestAt: Date.now()
     });
   },
-  exchangeBook: function(id, requesterBookId) {
+  exchangeComplete: function(id, requesterBookId) {
     Exchanges.update(id, {
       $set: {
         requesterBookId,

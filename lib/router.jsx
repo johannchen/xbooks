@@ -53,6 +53,28 @@ FlowRouter.route('/my-response', {
     });
   }
 });
+
+FlowRouter.route('/exchange/:_id', {
+  name: 'exchange',
+  action: function(params) {
+    ReactLayout.render(MainLayout, {
+      content() {
+        return <ExchangeBook exchangeId={params._id} />;
+      }
+    });
+  }
+});
+
+FlowRouter.route('/my-exchanges', {
+  name: 'my-exchanges',
+  action: function(params) {
+    ReactLayout.render(MainLayout, {
+      content() {
+        return <MyExchanges />;
+      }
+    });
+  }
+});
 /*
 FlowRouter.route('/verse/:_id', {
   name: 'verse',

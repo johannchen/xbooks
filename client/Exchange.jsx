@@ -33,7 +33,7 @@ Exchange = React.createClass({
               <p>{this.props.book.pages} pages, published on {this.props.book.publishedDate} by {this.props.book.publisher}, ISBN: {this.props.book.isbn13}</p>
               { this.props.response ?
                 <div>
-                  <strong>{this.props.exchange.responder.username}</strong> requested your book at <em>{this.props.exchange.requestAt}</em><br />
+                  <strong>{this.props.exchange.requester.username}</strong> requested your book at <em>{this.props.exchange.requestAt}</em><br />
                 </div>
                 :
                 <div>
@@ -46,8 +46,8 @@ Exchange = React.createClass({
           <CardActions>
             { this.props.response ?
               <div>
-                <FlatButton label="Deny Request" primary={true} onTouchTap={this.cancelRequest} />
-                <FlatButton label="Exchange Book" primary={true} />
+                <FlatButton label="Deny Request" onTouchTap={this.cancelRequest} />
+                <FlatButton label={this.exchangeLabel()} primary={true} onTouchTap={this.goExchangeBook}/>
               </div>
               : <FlatButton label="Cancel Request" primary={true} onTouchTap={this.cancelRequest} />
             }
@@ -61,9 +61,17 @@ Exchange = React.createClass({
     return this.props.book.authors ? this.props.book.authors.join(', ') : '';
   },
 
+  exchangeLabel() {
+    return `Exchange with ${this.props.exchange.requester.username}`;
+  },
+
   cancelRequest() {
     if (confirm('Are you sure to cancel this request?')) {
       Meteor.call('removeExchange', this.props.exchange._id);
     }
+  },
+
+  goExchangeBook() {
+    FlowRouter.go(`/exchange/${this.props.exchange._id}`);
   }
 });

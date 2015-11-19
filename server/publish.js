@@ -32,6 +32,10 @@ Meteor.publish("ownerBooks", function(id) {
   return Books.find({"owners.ownerId": id, "owners.exchange": true});
 });
 
+Meteor.publish("exchange", function(id) {
+  return Exchanges.find({_id: id});
+});
+
 Meteor.publish("people", function() {
   return Meteor.users.find();
 });
