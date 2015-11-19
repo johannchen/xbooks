@@ -1,15 +1,15 @@
 let { AppBar, IconButton, FontIcon, Styles } = MUI;
 let { Colors } = Styles;
 
-MyRequests = React.createClass({
+MyResponse = React.createClass({
   // This mixin makes the getMeteorData method work
   mixins: [ReactMeteorData],
 
   getMeteorData() {
-    let loaded = Meteor.subscribe('myResponderBooks').ready() && Meteor.subscribe('myRequests').ready();
+    let loaded = Meteor.subscribe('mybooks').ready() && Meteor.subscribe('myResponse').ready();
     return {
       loaded,
-      exchanges: Exchanges.find({}, {sort: {createdAt: -1}}).fetch()
+      exchanges: Exchanges.find({}, {sort: {requestAt: -1}}).fetch()
     }
   },
 
@@ -17,14 +17,14 @@ MyRequests = React.createClass({
     return (
       <div>
         <AppBar
-          title="My Requests"
+          title="My Response"
           iconElementLeft={<IconButton iconClassName="material-icons" onTouchTap={this.goHome}>home</IconButton>}
           iconElementRight={
             <div>
-              <IconButton title="My Response" onTouchTap={this.goMyResponse}>
+              <IconButton title="My Response" onTouchTap={this.goMyRequests}>
                 <FontIcon
                   className="material-icons"
-                  color={Colors.grey50}>access_alarm</FontIcon>
+                  color={Colors.grey50}>swap_vert</FontIcon>
               </IconButton>
               <IconButton title="My Books" onTouchTap={this.goMyBooks}>
                 <FontIcon
@@ -45,7 +45,7 @@ MyRequests = React.createClass({
 
   renderExchanges() {
     return this.data.exchanges.map( (exchange) => {
-      return <Exchange exchange={exchange} book={exchange.responderBook} key={exchange._id} />;
+      return <Exchange exchange={exchange} book={exchange.responderBook} response={true} key={exchange._id} />;
     });
   },
 
@@ -57,7 +57,7 @@ MyRequests = React.createClass({
     FlowRouter.go('/mybooks');
   },
 
-  goMyResponse() {
-    FlowRouter.go('/my-response');
+  goMyRequests() {
+    FlowRouter.go('/my-requests');
   }
 });

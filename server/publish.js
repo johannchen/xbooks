@@ -24,6 +24,14 @@ Meteor.publish("myResponderBooks", function() {
   return Books.find({_id: {$in: responderBookIds}});
 });
 
+Meteor.publish("myResponse", function() {
+  return Exchanges.find({responderId: this.userId, requesterBookId: {$exists: false}});
+});
+
+Meteor.publish("ownerBooks", function(id) {
+  return Books.find({"owners.ownerId": id, "owners.exchange": true});
+});
+
 Meteor.publish("people", function() {
   return Meteor.users.find();
 });

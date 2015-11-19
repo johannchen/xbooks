@@ -22,6 +22,11 @@ ExchangePage = React.createClass({
               iconElementLeft={<IconButton iconClassName="material-icons">home</IconButton>}
               iconElementRight={
                 <div>
+                  <IconButton title="My Response" onTouchTap={this.goMyResponse}>
+                    <FontIcon
+                      className="material-icons"
+                      color={Colors.grey50}>access_alarm</FontIcon>
+                  </IconButton>
                   <IconButton title="My Requests" onTouchTap={this.goMyRequests}>
                     <FontIcon
                       className="material-icons"
@@ -55,6 +60,10 @@ ExchangePage = React.createClass({
 
   goMyRequests() {
     FlowRouter.go('/my-requests');
+  },
+
+  goMyResponse() {
+    FlowRouter.go('/my-response');
   },
 
   logout() {
