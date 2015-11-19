@@ -31,6 +31,16 @@ FlowRouter.route('/mybooks', {
     });
   }
 });
+FlowRouter.route('/my-exchanges', {
+  name: 'my-exchanges',
+  action: function(params) {
+    ReactLayout.render(MainLayout, {
+      content() {
+        return <MyExchanges />;
+      }
+    });
+  }
+});
 /*
 FlowRouter.route('/verse/:_id', {
   name: 'verse',

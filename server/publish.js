@@ -14,6 +14,16 @@ Meteor.publish("exchangeBooks", function() {
   return Books.find({"owners.exchange": true, "owners.ownerId": {$ne: this.userId}});
 });
 
+Meteor.publish("myExchanges", function() {
+  return Exchanges.find({requesterId: this.userId});
+});
+
+Meteor.publish("myResponderBooks", function() {
+  let myExchanges = Exchanges.find({requesterId: this.userId}, {fields: {responderBookId: 1}});
+  let responderBookIds = myExchanges.map( (exchange) => { return exchange.responderBookId });
+  return Books.find({_id: {$in: responderBookIds}});
+});
+
 Meteor.publish("people", function() {
   return Meteor.users.find();
 });

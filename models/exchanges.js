@@ -1,7 +1,8 @@
 Exchanges = new Mongo.Collection("exchanges", {
   transform(doc) {
-    doc.responderBook = Book.findOne(doc.responderBookId);
-    doc.requesterBook = Book.findOne(doc.requesterBookId);
+    doc.responderBook = Books.findOne(doc.responderBookId);
+    doc.requesterBook = Books.findOne(doc.requesterBookId);
+    doc.responder = Meteor.users.findOne(doc.responderId);
     return doc;
   }
 });
@@ -27,7 +28,7 @@ Meteor.methods({
       console.log(err);
     });
   },
-  denyRequest: function(id) {
+  removeExchange: function(id) {
     Exchanges.remove(id);
   }
 });

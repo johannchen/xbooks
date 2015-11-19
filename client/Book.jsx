@@ -80,18 +80,14 @@ Book = React.createClass({
     }
   },
 
-
-
-  selectOwner(event, selectedIndex, item) {
-
-  },
-
   handleRequestBook() {
     let index = this.refs.responder.state.selectedIndex;
     // TODO: a better way to get value from dropdown menu without onChange?
     let responderId = this.props.book.owners[index].ownerId;
-    //console.log(responderId);
+    // TODO: avoid duplicate request from the same responder
     Meteor.call('requestBook', this.props.book._id, responderId);
+    // TODO: email responder
+    FlowRouter.go('/my-exchanges');
   },
 
   toggleExchange() {
