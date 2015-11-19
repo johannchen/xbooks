@@ -14,12 +14,12 @@ Meteor.publish("exchangeBooks", function() {
   return Books.find({"owners.exchange": true, "owners.ownerId": {$ne: this.userId}});
 });
 
-Meteor.publish("myExchanges", function() {
-  return Exchanges.find({requesterId: this.userId});
+Meteor.publish("myRequests", function() {
+  return Exchanges.find({requesterId: this.userId, requesterBookId: {$exists: false}});
 });
 
 Meteor.publish("myResponderBooks", function() {
-  let myExchanges = Exchanges.find({requesterId: this.userId}, {fields: {responderBookId: 1}});
+  let myExchanges = Exchanges.find({requesterId: this.userId, requesterBookId: {$exists: false}}, {fields: {responderBookId: 1}});
   let responderBookIds = myExchanges.map( (exchange) => { return exchange.responderBookId });
   return Books.find({_id: {$in: responderBookIds}});
 });

@@ -31,12 +31,12 @@ FlowRouter.route('/mybooks', {
     });
   }
 });
-FlowRouter.route('/my-exchanges', {
-  name: 'my-exchanges',
+FlowRouter.route('/my-requests', {
+  name: 'my-requests',
   action: function(params) {
     ReactLayout.render(MainLayout, {
       content() {
-        return <MyExchanges />;
+        return <MyRequests />;
       }
     });
   }

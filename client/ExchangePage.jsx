@@ -22,10 +22,10 @@ ExchangePage = React.createClass({
               iconElementLeft={<IconButton iconClassName="material-icons">home</IconButton>}
               iconElementRight={
                 <div>
-                  <IconButton title="Exchanges" onTouchTap={this.goMyExchanges}>
+                  <IconButton title="My Requests" onTouchTap={this.goMyRequests}>
                     <FontIcon
                       className="material-icons"
-                      color={Colors.grey50}>swap_horiz</FontIcon>
+                      color={Colors.grey50}>swap_vert</FontIcon>
                   </IconButton>
                   <IconButton title="My Books" onTouchTap={this.goMyBooks}>
                     <FontIcon
@@ -53,8 +53,8 @@ ExchangePage = React.createClass({
     FlowRouter.go('/mybooks');
   },
 
-  goMyExchanges() {
-    FlowRouter.go('/my-exchanges');
+  goMyRequests() {
+    FlowRouter.go('/my-requests');
   },
 
   logout() {

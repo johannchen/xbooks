@@ -1,12 +1,12 @@
 let { AppBar, IconButton, FontIcon, Styles } = MUI;
 let { Colors } = Styles;
 
-MyExchanges = React.createClass({
+MyRequests = React.createClass({
   // This mixin makes the getMeteorData method work
   mixins: [ReactMeteorData],
 
   getMeteorData() {
-    let loaded = Meteor.subscribe('myResponderBooks').ready() && Meteor.subscribe('myExchanges').ready();
+    let loaded = Meteor.subscribe('myResponderBooks').ready() && Meteor.subscribe('myRequests').ready();
     return {
       loaded,
       exchanges: Exchanges.find({}, {sort: {createdAt: -1}}).fetch()
@@ -17,7 +17,7 @@ MyExchanges = React.createClass({
     return (
       <div>
         <AppBar
-          title="My Exchanges"
+          title="My Requests"
           iconElementLeft={<IconButton iconClassName="material-icons" onTouchTap={this.goHome}>home</IconButton>}
           iconElementRight={
             <div>
