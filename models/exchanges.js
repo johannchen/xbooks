@@ -4,6 +4,7 @@ Exchanges = new Mongo.Collection("exchanges", {
     doc.requesterBook = Books.findOne(doc.requesterBookId);
     doc.responder = Meteor.users.findOne(doc.responderId);
     doc.requester = Meteor.users.findOne(doc.requesterId);
+    doc.exchangeDate = moment(doc.exchangeAt).format('L');
     return doc;
   }
 });
@@ -31,5 +32,8 @@ Meteor.methods({
   },
   removeExchange: function(id) {
     Exchanges.remove(id);
+  },
+  resetExchanges: function() {
+    Exchanges.remove();
   }
 });

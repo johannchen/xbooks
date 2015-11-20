@@ -52,15 +52,17 @@ Meteor.methods({
     });
   },
 
-  exchangeBook: function(requesterId, requesterBookId, responderId, responderBookId) {
+  exchangeBook: function(requesterId, requesterBookId, responderBookId) {
     Books.update(requesterBookId, {
       $push: {
         owners: {
-          ownerId: responderId,
+          ownerId: Meteor.userId(),
           exchange: false,
           createdAt: Date.now()
         }
-      },
+      }
+    });
+    Books.update(requesterBookId, {
       $pull: {
         owners: {ownerId: requesterId}
       }
@@ -72,9 +74,11 @@ Meteor.methods({
           exchange: false,
           createdAt: Date.now()
         }
-      },
+      }
+    });
+    Books.update(responderBookId, {
       $pull: {
-        owners: {ownerId: responderId}
+        owners: {ownerId: Meteor.userId()}
       }
     });
   }

@@ -18,6 +18,7 @@ Meteor.publish("myRequests", function() {
   return Exchanges.find({requesterId: this.userId, requesterBookId: {$exists: false}});
 });
 
+// books for my-requests page
 Meteor.publish("myResponderBooks", function() {
   let myExchanges = Exchanges.find({requesterId: this.userId, requesterBookId: {$exists: false}}, {fields: {responderBookId: 1}});
   let responderBookIds = myExchanges.map( (exchange) => { return exchange.responderBookId });
@@ -34,6 +35,20 @@ Meteor.publish("ownerBooks", function(id) {
 
 Meteor.publish("exchange", function(id) {
   return Exchanges.find({_id: id});
+});
+
+Meteor.publish("myExchanges", function() {
+  return Exchanges.find({$or: [{requesterId: this.userId}, {responderId: this.userId}]});
+});
+
+Meteor.publish("myExchangeBooks", function() {
+  //TODO filter only my exchange books
+  return Books.find();
+  /*
+  let myExchanges = Exchanges.find({requesterId: this.userId, requesterBookId: {$exists: false}}, {fields: {responderBookId: 1}});
+  let responderBookIds = myExchanges.map( (exchange) => { return exchange.responderBookId });
+  return Books.find({_id: {$in: responderBookIds}});
+  */
 });
 
 Meteor.publish("people", function() {

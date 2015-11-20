@@ -1,14 +1,25 @@
-let { AppBar, IconButton, FontIcon, Styles } = MUI;
+let {
+  AppBar,
+  IconButton,
+  FontIcon,
+  Styles,
+  Table,
+  TableHeader,
+  TableHeaderColumn,
+  TableBody,
+  TableRow
+} = MUI;
 let { Colors } = Styles;
 
-ExchangePage = React.createClass({
+MyExchanges = React.createClass({
   // This mixin makes the getMeteorData method work
   mixins: [ReactMeteorData],
 
   getMeteorData() {
+    let loaded = Meteor.subscribe('myExchangeBooks').ready() && Meteor.subscribe('myExchanges').ready();
     return {
-      loaded: Meteor.subscribe('exchangeBooks').ready(),
-      books: Books.find({}, {sort: {"owners.createdAt": -1}}).fetch()
+      loaded,
+      exchanges: Exchanges.find().fetch()
     }
   },
 
@@ -16,8 +27,8 @@ ExchangePage = React.createClass({
     return (
       <div>
         <AppBar
-          title="XBooks"
-          iconElementLeft={<IconButton iconClassName="material-icons">home</IconButton>}
+          title="My Exchanges"
+          iconElementLeft={<IconButton iconClassName="material-icons" onTouchTap={this.goHome}>home</IconButton>}
           iconElementRight={
             <div>
               <IconButton title="My Response" onTouchTap={this.goMyResponse}>
@@ -30,37 +41,40 @@ ExchangePage = React.createClass({
                   className="material-icons"
                   color={Colors.grey50}>swap_vert</FontIcon>
               </IconButton>
-              <IconButton title="My Requests" onTouchTap={this.goMyExchanges}>
-                <FontIcon
-                  className="material-icons"
-                  color={Colors.grey50}>swap_horiz</FontIcon>
-              </IconButton>
               <IconButton title="My Books" onTouchTap={this.goMyBooks}>
                 <FontIcon
                   className="material-icons"
                   color={Colors.grey50}>collections_book</FontIcon>
               </IconButton>
-              <IconButton title="Logout" onTouchTap={this.logout}>
-                <FontIcon
-                  className="material-icons"
-                  color={Colors.grey50}>exit_to_app</FontIcon>
-              </IconButton>
             </div>
           } />
         { this.data.loaded ?
-          <div>
-            {this.renderBooks()}
-          </div>
+          <Table selectable={false}>
+            <TableHeader displaySelectAll={false}>
+              <TableRow>
+                <TableHeaderColumn tooltip='request'>Request</TableHeaderColumn>
+                <TableHeaderColumn tooltip='response'>Response</TableHeaderColumn>
+                <TableHeaderColumn tooltip='exchange date'>Exchange Date</TableHeaderColumn>
+              </TableRow>
+            </TableHeader>
+            <TableBody>
+              {this.renderExchanges()}
+            </TableBody>
+          </Table>
           : ''
         }
       </div>
     )
   },
 
-  renderBooks() {
-    return this.data.books.map( (book) => {
-      return <Book book={book} toRequest={true} key={book._id} />;
+  renderExchanges() {
+    return this.data.exchanges.map( (exchange) => {
+      return <ExchangeInfo exchange={exchange} key={exchange._id} />;
     });
+  },
+
+  goHome() {
+    FlowRouter.go('/');
   },
 
   goMyBooks() {
@@ -74,12 +88,4 @@ ExchangePage = React.createClass({
   goMyResponse() {
     FlowRouter.go('/my-response');
   },
-
-  goMyExchanges() {
-    FlowRouter.go('/my-exchanges');
-  },
-
-  logout() {
-    Meteor.logout();
-  }
 });

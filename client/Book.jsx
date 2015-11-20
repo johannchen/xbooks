@@ -101,9 +101,9 @@ Book = React.createClass({
   },
 
   handleExchangeBook() {
-    Meteor.call('exchangeBook', this.props.exchange.requesterId, this.props.book._id, this.props.exchange.responderId, this.props.exchange.responderBookId);
+    Meteor.call('exchangeBook', this.props.exchange.requesterId, this.props.book._id, this.props.exchange.responderBookId);
     Meteor.call('exchangeComplete', this.props.exchange._id, this.props.book._id);
-    FlowRouter.go('/my-exchanges');
+    FlowRouter.go('/mybooks');
   }
 
 });

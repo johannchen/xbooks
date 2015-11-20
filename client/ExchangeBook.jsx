@@ -53,7 +53,6 @@ ExchangeBook = React.createClass({
   },
 
   getTitle() {
-    console.log(this.data.exchange);
     return `Exchange With ${this.data.exchange.requester.username}`;
   },
 
@@ -64,5 +63,4 @@ ExchangeBook = React.createClass({
   goHome() {
     FlowRouter.go('/');
   }
-
 });
