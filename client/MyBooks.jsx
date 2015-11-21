@@ -4,6 +4,12 @@ MyBooks = React.createClass({
   // This mixin makes the getMeteorData method work
   mixins: [ReactMeteorData],
 
+  getInitialState() {
+    return {
+      toExchange: true
+    }
+  },
+
   getMeteorData() {
     return {
       loaded: Meteor.subscribe('mybooks').ready(),
@@ -19,7 +25,18 @@ MyBooks = React.createClass({
               title="My Books"
               iconElementLeft={<IconButton iconClassName="material-icons" onTouchTap={this.goAddBook}>add</IconButton>}
               iconElementRight={
-                <IconButton iconClassName="material-icons" onTouchTap={this.goHome}>home</IconButton>
+                <div>
+                  <IconButton title="Toggle Filter" onTouchTap={this.toggleToExchange}>
+                    <FontIcon
+                      className="material-icons"
+                      color={Colors.grey50}>done</FontIcon>
+                  </IconButton>
+                  <IconButton title="Home" onTouchTap={this.goHome}>
+                    <FontIcon
+                      className="material-icons"
+                      color={Colors.grey50}>home</FontIcon>
+                  </IconButton>
+                </div>
               } />
             {this.renderBooks()}
           </div>
@@ -32,7 +49,9 @@ MyBooks = React.createClass({
   renderBooks() {
     return this.data.books.map( (mybook) => {
       let me = mybook.owners.filter( (owner) => { return owner.ownerId == Meteor.userId() } );
-      return <Book book={mybook} toExchange={me[0].exchange} mybook={true} key={mybook._id} />;
+      if (me[0].exchange === this.state.toExchange) {
+        return <Book book={mybook} toExchange={me[0].exchange} mybook={true} key={mybook._id} />;
+      }
     });
   },
 
@@ -43,5 +62,9 @@ MyBooks = React.createClass({
   goHome() {
     FlowRouter.go('/');
   },
+
+  toggleToExchange() {
+    this.setState({toExchange: !this.state.toExchange});
+  }
 
 });
