@@ -21,7 +21,7 @@ MyResponse = React.createClass({
           iconElementLeft={<IconButton iconClassName="material-icons" onTouchTap={this.goHome}>home</IconButton>}
           iconElementRight={
             <div>
-              <IconButton title="My Response" onTouchTap={this.goMyRequests}>
+              <IconButton title="My Requests" onTouchTap={this.goMyRequests}>
                 <FontIcon
                   className="material-icons"
                   color={Colors.grey50}>swap_vert</FontIcon>

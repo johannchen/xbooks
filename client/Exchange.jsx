@@ -33,12 +33,12 @@ Exchange = React.createClass({
               <p>{this.props.book.pages} pages, published on {this.props.book.publishedDate} by {this.props.book.publisher}, ISBN: {this.props.book.isbn13}</p>
               { this.props.response ?
                 <div>
-                  <strong>{this.props.exchange.requester.username}</strong> requested your book at <em>{this.props.exchange.requestAt}</em><br />
+                  <strong>{this.props.exchange.requester.username}</strong> requested your book at <em>{this.getRequestAt()}</em><br />
                 </div>
                 :
                 <div>
                   Waiting response from owner <strong>{this.props.exchange.responder.username}</strong><br />
-                  Requested at {this.props.exchange.requestAt}
+                Requested at {this.getRequestAt()}
                 </div>
               }
             </div>
@@ -46,7 +46,7 @@ Exchange = React.createClass({
           <CardActions>
             { this.props.response ?
               <div>
-                <FlatButton label="Deny Request" onTouchTap={this.cancelRequest} />
+                <FlatButton label="Deny Request" onTouchTap={this.denyRequest} />
                 <FlatButton label={this.exchangeLabel()} primary={true} onTouchTap={this.goExchangeBook}/>
               </div>
               : <FlatButton label="Cancel Request" primary={true} onTouchTap={this.cancelRequest} />
@@ -55,6 +55,10 @@ Exchange = React.createClass({
         </Card>
       </div>
     )
+  },
+
+  getRequestAt() {
+    return moment(this.props.exchange.requestAt).format('L');
   },
 
   authors() {
@@ -68,6 +72,24 @@ Exchange = React.createClass({
   cancelRequest() {
     if (confirm('Are you sure to cancel this request?')) {
       Meteor.call('removeExchange', this.props.exchange._id);
+      //send email to responder
+      let to = this.props.exchange.responder.emails[0].address;
+      let from = Meteor.user().emails[0].address;
+      let subject = `${Meteor.user().username} cancel the request to exchange ${this.props.exchange.responderBook.title}`;
+      let content = "You don't need to do anything.";
+      Meteor.call('sendEmail', to, from, subject, content);
+    }
+  },
+
+  denyRequest() {
+    if (confirm('Are you sure to deny this request?')) {
+      Meteor.call('removeExchange', this.props.exchange._id);
+      //send email to responder
+      let to = this.props.exchange.requester.emails[0].address;
+      let from = Meteor.user().emails[0].address;
+      let subject = `${Meteor.user().username} deny the request to exchange ${this.props.exchange.responderBook.title}`;
+      let content = `Sorry, you may try to request books from another user, or you can try to add a book that ${Meteor.user().username} is willing to exchange with.`;
+      Meteor.call('sendEmail', to, from, subject, content);
     }
   },
 
