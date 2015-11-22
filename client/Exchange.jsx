@@ -1,3 +1,5 @@
+Session.setDefault('bookTitle', null);
+
 let { Card,
   CardTitle,
   CardText,
@@ -33,12 +35,12 @@ Exchange = React.createClass({
               <p>{this.props.book.pages} pages, published on {this.props.book.publishedDate} by {this.props.book.publisher}, ISBN: {this.props.book.isbn13}</p>
               { this.props.response ?
                 <div>
-                  <strong>{this.props.exchange.requester.username}</strong> requested your book at <em>{this.getRequestAt()}</em><br />
+                  <strong>{this.props.exchange.requester.username}</strong> requested your book at <em>{this.props.exchange.requestDate}</em><br />
                 </div>
                 :
                 <div>
                   Waiting response from owner <strong>{this.props.exchange.responder.username}</strong><br />
-                Requested at {this.getRequestAt()}
+                Requested at {this.props.exchange.requestDate}
                 </div>
               }
             </div>
@@ -55,10 +57,6 @@ Exchange = React.createClass({
         </Card>
       </div>
     )
-  },
-
-  getRequestAt() {
-    return moment(this.props.exchange.requestAt).format('L');
   },
 
   authors() {
@@ -94,6 +92,7 @@ Exchange = React.createClass({
   },
 
   goExchangeBook() {
+    Session.set('bookTitle', this.props.book.title);
     FlowRouter.go(`/exchange/${this.props.exchange._id}`);
   }
 });

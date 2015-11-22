@@ -114,12 +114,13 @@ Book = React.createClass({
     let to = requester.emails[0].address;
     let from = Meteor.user().emails[0].address;
     let subject = 'Congratulations! your books are exchanged at Xbooks';
-    let content = `Please arrange the time and place to exchange the books between you two. (${requester.username}) ${this.props.book.title} exchanges with (${Meteor.user().username}) ${this.props.exchange.responderBookId}`;
+    let content = `Please arrange the time and place to exchange the books between you two. (${requester.username}) ${this.props.book.title} exchanges with (${Meteor.user().username}) ${Session.get('bookTitle')}`;
     Meteor.call('sendEmail', to, from, subject, content);
     // exchange book
     Meteor.call('exchangeBook', this.props.exchange.requesterId, this.props.book._id, this.props.exchange.responderBookId);
     Meteor.call('exchangeComplete', this.props.exchange._id, this.props.book._id);
     //TODO: become friends after exchange
+    Session.set('bookTitle', null);
     FlowRouter.go('/mybooks');
   }
 

@@ -5,6 +5,7 @@ Exchanges = new Mongo.Collection("exchanges", {
     doc.responder = Meteor.users.findOne(doc.responderId);
     doc.requester = Meteor.users.findOne(doc.requesterId);
     doc.exchangeDate = moment(doc.exchangeAt).format('L');
+    doc.requestDate = moment(doc.requestAt).format('L');
     return doc;
   }
 });
