@@ -38,7 +38,7 @@ Meteor.publish("exchange", function(id) {
 });
 
 Meteor.publish("myExchanges", function() {
-  return Exchanges.find({$or: [{requesterId: this.userId}, {responderId: this.userId}]});
+  return Exchanges.find({exchangeAt: {$exists: true}, $or: [{requesterId: this.userId}, {responderId: this.userId}]});
 });
 
 Meteor.publish("myExchangeBooks", function() {

@@ -30,7 +30,7 @@ ExchangePage = React.createClass({
                   className="material-icons"
                   color={Colors.grey50}>swap_vert</FontIcon>
               </IconButton>
-              <IconButton title="My Requests" onTouchTap={this.goMyExchanges}>
+              <IconButton title="My Exchanges" onTouchTap={this.goMyExchanges}>
                 <FontIcon
                   className="material-icons"
                   color={Colors.grey50}>swap_horiz</FontIcon>

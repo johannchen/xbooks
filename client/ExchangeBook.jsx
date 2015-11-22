@@ -37,7 +37,7 @@ ExchangeBook = React.createClass({
               <div>
                 {this.renderBooks()}
               </div>
-              : ''
+              : <p>loading...</p>
             }
           </div>
           : ''
@@ -47,9 +47,13 @@ ExchangeBook = React.createClass({
   },
 
   renderBooks() {
-    return this.data.books.map( (book) => {
-      return <Book book={book} exchange={this.data.exchange} key={book._id} />;
-    });
+    if (this.data.books.length === 0) {
+      return <p>Sorry, {this.data.exchange.requester.username} has no book available for exchange.</p>;
+    } else {
+      return this.data.books.map( (book) => {
+        return <Book book={book} exchange={this.data.exchange} key={book._id} />;
+      });
+    }
   },
 
   getTitle() {
