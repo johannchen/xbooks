@@ -1,4 +1,9 @@
-let { AppBar, IconButton, FontIcon, Styles } = MUI;
+let { AppBar,
+  IconButton,
+  FontIcon,
+  IconMenu,
+  Styles } = MUI;
+let MenuItem = MUI.Libs.MenuItem;
 let { Colors } = Styles;
 
 ExchangePage = React.createClass({
@@ -17,34 +22,38 @@ ExchangePage = React.createClass({
       <div>
         <AppBar
           title="XBooks"
-          iconElementLeft={<IconButton iconClassName="material-icons">home</IconButton>}
+          iconElementLeft={<IconButton iconClassName="zmdi zmdi-home"></IconButton>}
           iconElementRight={
             <div>
               <IconButton title="My Response" onTouchTap={this.goMyResponse}>
                 <FontIcon
-                  className="material-icons"
-                  color={Colors.grey50}>access_alarm</FontIcon>
+                  className="zmdi zmdi-notifications"
+                  color={Colors.grey50}></FontIcon>
               </IconButton>
               <IconButton title="My Requests" onTouchTap={this.goMyRequests}>
                 <FontIcon
-                  className="material-icons"
-                  color={Colors.grey50}>swap_vert</FontIcon>
+                  className="zmdi zmdi-swap-vertical"
+                  color={Colors.grey50}></FontIcon>
               </IconButton>
               <IconButton title="My Exchanges" onTouchTap={this.goMyExchanges}>
                 <FontIcon
-                  className="material-icons"
-                  color={Colors.grey50}>swap_horiz</FontIcon>
+                  className="zmdi zmdi-swap"
+                  color={Colors.grey50}></FontIcon>
               </IconButton>
               <IconButton title="My Books" onTouchTap={this.goMyBooks}>
                 <FontIcon
-                  className="material-icons"
-                  color={Colors.grey50}>collections_book</FontIcon>
+                  className="zmdi zmdi-collection-bookmark"
+                  color={Colors.grey50}></FontIcon>
               </IconButton>
-              <IconButton title="Logout" onTouchTap={this.logout}>
-                <FontIcon
-                  className="material-icons"
-                  color={Colors.grey50}>exit_to_app</FontIcon>
-              </IconButton>
+              <IconMenu
+                iconButtonElement={
+                  <IconButton>
+                    <FontIcon className="zmdi zmdi-more-vert" color={Colors.grey50}></FontIcon>
+                  </IconButton>
+                }>
+                <MenuItem primaryText="Profile" onTouchTap={this.goProfile} />
+                <MenuItem primaryText="Sign Out" onTouchTap={this.handleSignOut} />
+              </IconMenu>
             </div>
           } />
         { this.data.loaded ?
@@ -79,7 +88,7 @@ ExchangePage = React.createClass({
     FlowRouter.go('/my-exchanges');
   },
 
-  logout() {
+  handleSignOut() {
     Meteor.logout();
   }
 });

@@ -34,7 +34,7 @@ AddBook = React.createClass({
           iconElementLeft={
             <div>
               <IconButton onTouchTap={this.clearSearch}>
-                <FontIcon className="material-icons" color={Colors.grey50}>search</FontIcon>
+                <FontIcon className="zmdi zmdi-search" color={Colors.grey50}></FontIcon>
               </IconButton>
               <TextField
                 hintText="Search Book Then Add"
@@ -43,7 +43,7 @@ AddBook = React.createClass({
                 onEnterKeyDown={this.handleSearch} />
             </div>
           }
-          iconElementRight={<IconButton iconClassName="material-icons" onTouchTap={this.goHome}>home</IconButton>} />
+          iconElementRight={<IconButton iconClassName="zmdi zmdi-home" onTouchTap={this.goHome}></IconButton>} />
         { this.state.query ?
           <div>
             { this.data.gbooksLoaded ?

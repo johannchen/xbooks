@@ -23,18 +23,18 @@ MyBooks = React.createClass({
           <div>
             <AppBar
               title="My Books"
-              iconElementLeft={<IconButton iconClassName="material-icons" onTouchTap={this.goAddBook}>add</IconButton>}
+              iconElementLeft={<IconButton iconClassName="zmdi zmdi-plus" onTouchTap={this.goAddBook}></IconButton>}
               iconElementRight={
                 <div>
                   <IconButton title="Toggle Filter" onTouchTap={this.toggleToExchange}>
                     <FontIcon
-                      className="material-icons"
-                      color={Colors.grey50}>done</FontIcon>
+                      className="zmdi zmdi-check"
+                      color={Colors.grey50}></FontIcon>
                   </IconButton>
                   <IconButton title="Home" onTouchTap={this.goHome}>
                     <FontIcon
-                      className="material-icons"
-                      color={Colors.grey50}>home</FontIcon>
+                      className="zmdi zmdi-home"
+                      color={Colors.grey50}></FontIcon>
                   </IconButton>
                 </div>
               } />

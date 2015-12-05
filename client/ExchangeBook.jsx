@@ -29,9 +29,9 @@ ExchangeBook = React.createClass({
           <div>
             <AppBar
               title={this.getTitle()}
-              iconElementLeft={<IconButton iconClassName="material-icons" onTouchTap={this.goMyResponse}>arrow_back</IconButton>}
+              iconElementLeft={<IconButton iconClassName="zmdi zmdi-arrow-left" onTouchTap={this.goMyResponse}></IconButton>}
               iconElementRight={
-                <IconButton iconClassName="material-icons" onTouchTap={this.goHome}>home</IconButton>
+                <IconButton iconClassName="zmdi zmdi-home" onTouchTap={this.goHome}></IconButton>
               } />
             { this.data.loaded ?
               <div>

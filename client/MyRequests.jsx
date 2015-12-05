@@ -18,18 +18,18 @@ MyRequests = React.createClass({
       <div>
         <AppBar
           title="My Requests"
-          iconElementLeft={<IconButton iconClassName="material-icons" onTouchTap={this.goHome}>home</IconButton>}
+          iconElementLeft={<IconButton iconClassName="zmdi zmdi-home" onTouchTap={this.goHome}></IconButton>}
           iconElementRight={
             <div>
               <IconButton title="My Response" onTouchTap={this.goMyResponse}>
                 <FontIcon
-                  className="material-icons"
-                  color={Colors.grey50}>access_alarm</FontIcon>
+                  className="zmdi zmdi-notifications"
+                  color={Colors.grey50}></FontIcon>
               </IconButton>
               <IconButton title="My Books" onTouchTap={this.goMyBooks}>
                 <FontIcon
-                  className="material-icons"
-                  color={Colors.grey50}>collections_book</FontIcon>
+                  className="zmdi zmdi-collection-bookmark"
+                  color={Colors.grey50}></FontIcon>
               </IconButton>
             </div>
           } />

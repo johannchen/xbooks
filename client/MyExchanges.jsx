@@ -68,6 +68,7 @@ MyExchanges = React.createClass({
   },
 
   renderExchanges() {
+    // TODO: render responsive on mobile
     return this.data.exchanges.map( (exchange) => {
       return <ExchangeInfo exchange={exchange} key={exchange._id} />;
     });

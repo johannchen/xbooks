@@ -26,13 +26,12 @@ Book = React.createClass({
             title={this.props.book.title}
             subtitle={this.authors()} />
           <CardText>
-            <div>
-              <a href={this.props.book.previewLink}>
-                <img style={{float: "left", marginRight: "15px"}} src={this.props.book.thumb} />
-              </a>
-              <p><span dangerouslySetInnerHTML={{__html: this.props.book.snippet}} /></p>
-              <p>{this.props.book.pages} pages, published on {this.props.book.publishedDate} by {this.props.book.publisher}, ISBN: {this.props.book.isbn13}</p>
-            </div>
+            <a href={this.props.book.previewLink}>
+              <img style={{float: "left", marginRight: "15px"}} src={this.props.book.thumb} />
+            </a>
+            <p><span dangerouslySetInnerHTML={{__html: this.props.book.snippet}} /></p>
+            <p>{this.props.book.pages} pages, published on {this.props.book.publishedDate} by {this.props.book.publisher}</p>
+            <p>ISBN: {this.props.book.isbn13}</p>
           </CardText>
           <CardActions>
             { this.props.mybook ?
