@@ -33,8 +33,6 @@ Book = React.createClass({
             <p><span dangerouslySetInnerHTML={{__html: this.props.book.snippet}} /></p>
             <p>{this.props.book.pages} pages, published on {this.props.book.publishedDate} by {this.props.book.publisher}</p>
             <p>ISBN: {this.props.book.isbn13}</p>
-          </CardText>
-          <CardActions>
             { this.props.mybook ?
               <div>
                 <Checkbox
@@ -65,11 +63,15 @@ Book = React.createClass({
                 }
               </div>
             }
-          </CardActions>
-          <CardText>
-            <TextField hintText="Any comments on this verse?" ref="newComment" fullWidth={true} multiLine={true} />
-            <FlatButton label="Add Comment" secondary={true} onTouchTap={this.addComment} />
-            {this.renderComments()}
+            { this.props.add ?
+              ''
+              :
+              <div>
+                <TextField hintText="Any comments on this book?" ref="newComment" fullWidth={true} multiLine={true} />
+                <FlatButton label="Add Comment" secondary={true} onTouchTap={this.addComment} />
+                {this.renderComments()}
+              </div>
+            }
           </CardText>
         </Card>
       </div>
@@ -115,7 +117,7 @@ Book = React.createClass({
     let to = Meteor.users.findOne(responderId).emails[0].address;
     let sender = me.emails[0].address;
     let subject = `${me.username} requests ${this.props.book.title}`;
-    let content = `Please respond to the request at`;
+    let content = `Please respond to the request at http://xbooks.meteor.com/`;
     Meteor.call('sendEmail', to, sender, subject, content);
     // TODO: indicate an email is sent
     FlowRouter.go('/my-requests');
@@ -128,7 +130,7 @@ Book = React.createClass({
     let to = requester.emails[0].address;
     let from = Meteor.user().emails[0].address;
     let subject = 'Congratulations! your books are exchanged at Xbooks';
-    let content = `Please arrange the time and place to exchange the books between you two. (${requester.username}) ${this.props.book.title} exchanges with (${Meteor.user().username}) ${Session.get('bookTitle')}`;
+    let content = `Please arrange the time and place to exchange the books between you two. (${requester.username}) ${this.props.book.title} exchanges with (${Meteor.user().username}) ${Session.get('bookTitle')} at http://xbooks.meteor.com/`;
     Meteor.call('sendEmail', to, from, subject, content);
     // exchange book
     Meteor.call('exchangeBook', this.props.exchange.requesterId, this.props.book._id, this.props.exchange.responderBookId);

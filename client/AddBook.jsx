@@ -59,7 +59,7 @@ AddBook = React.createClass({
 
   renderGbooks() {
     return this.data.gbooks.map( (book) => {
-      return <Book book={book} key={book._id} />;
+      return <Book book={book} key={book._id} add={true} />;
     });
   },
 

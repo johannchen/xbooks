@@ -1,4 +1,4 @@
-let { AppBar, IconButton, FontIcon, Styles } = MUI;
+let { AppBar, IconButton, FontIcon, Checkbox, Styles } = MUI;
 let { Colors } = Styles;
 MyBooks = React.createClass({
   // This mixin makes the getMeteorData method work
