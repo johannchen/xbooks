@@ -9,7 +9,7 @@ Books = new Mongo.Collection('books', {
 
 
 Meteor.methods({
-  addBook: function(book) {
+  addBook(book) {
     let b = Books.findOne({isbn10: book.isbn10})
     if (b) {
       // add owner
@@ -38,7 +38,7 @@ Meteor.methods({
     }
   },
 
-  removeMyBook: function(id) {
+  removeMyBook(id) {
     Books.update(id, {
       $pull: {
         owners: {ownerId: Meteor.userId()}
@@ -46,13 +46,34 @@ Meteor.methods({
     });
   },
 
-  toggleExchange: function(id, toggleValue) {
+  addComment(id, comment) {
+    Books.update(id, {
+      $push: {
+        comments: {
+          id: Random.id(),
+          comment,
+          username: Meteor.user().username,
+          createdAt: Date.now()
+        }
+      }
+    });
+  },
+
+  removeComment(id, commentId) {
+    Books.update(id, {
+      $pull: {
+        comments: {id: commentId}
+      }
+    });
+  },
+
+  toggleExchange(id, toggleValue) {
     Books.update({_id: id, "owners.ownerId": Meteor.userId()}, {
       $set: {"owners.$.exchange": toggleValue}
     });
   },
 
-  exchangeBook: function(requesterId, requesterBookId, responderBookId) {
+  exchangeBook(requesterId, requesterBookId, responderBookId) {
     Books.update(requesterBookId, {
       $push: {
         owners: {

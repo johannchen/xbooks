@@ -27,7 +27,8 @@ Book = React.createClass({
             subtitle={this.authors()} />
           <CardText>
             <a href={this.props.book.previewLink}>
-              <img style={{float: "left", marginRight: "15px"}} src={this.props.book.thumb} />
+              <img style={{float: "left", marginRight: "15px", marginBottom: "5px"}}
+                src={this.props.book.thumb} />
             </a>
             <p><span dangerouslySetInnerHTML={{__html: this.props.book.snippet}} /></p>
             <p>{this.props.book.pages} pages, published on {this.props.book.publishedDate} by {this.props.book.publisher}</p>
@@ -65,6 +66,11 @@ Book = React.createClass({
               </div>
             }
           </CardActions>
+          <CardText>
+            <TextField hintText="Any comments on this verse?" ref="newComment" fullWidth={true} multiLine={true} />
+            <FlatButton label="Add Comment" secondary={true} onTouchTap={this.addComment} />
+            {this.renderComments()}
+          </CardText>
         </Card>
       </div>
     )
@@ -72,6 +78,15 @@ Book = React.createClass({
 
   authors() {
     return this.props.book.authors ? this.props.book.authors.join(', ') : '';
+  },
+
+  renderComments() {
+    if (this.props.book.comments) {
+      let bookId = this.props.book._id;
+      return this.props.book.comments.map( (comment) => {
+        return <Comment key={comment.id} comment={comment} bookId={bookId} />;
+      });
+    }
   },
 
   handleAddBook() {
@@ -121,6 +136,14 @@ Book = React.createClass({
     //TODO: become friends after exchange
     Session.set('bookTitle', null);
     FlowRouter.go('/mybooks');
+  },
+
+  addComment() {
+    let comment = this.refs.newComment.getValue();
+    if (comment) {
+      Meteor.call('addComment', this.props.book._id, comment);
+      this.refs.newComment.setValue(null);
+    }
   }
 
 });
