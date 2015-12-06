@@ -31,6 +31,7 @@ Meteor.methods({
       gbook = book;
       gbook.owners = [{
         ownerId: Meteor.userId(),
+        church: Session.get('church'),
         exchange: true,
         createdAt: Date.now()
       }];

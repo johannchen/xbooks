@@ -10,6 +10,18 @@ FlowRouter.route('/', {
   }
 });
 
+FlowRouter.route('/profile', {
+  name: 'profile',
+  action: function(params) {
+    /* The key 'content' is now a function */
+    ReactLayout.render(MainLayout, {
+      content() {
+        return <Profile />;
+      }
+    });
+  }
+});
+
 FlowRouter.route('/add-book', {
   name: 'add-book',
   action: function(params) {

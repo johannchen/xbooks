@@ -30,16 +30,6 @@ ExchangePage = React.createClass({
                   className="zmdi zmdi-notifications"
                   color={Colors.grey50}></FontIcon>
               </IconButton>
-              <IconButton title="My Requests" onTouchTap={this.goMyRequests}>
-                <FontIcon
-                  className="zmdi zmdi-swap-vertical"
-                  color={Colors.grey50}></FontIcon>
-              </IconButton>
-              <IconButton title="My Exchanges" onTouchTap={this.goMyExchanges}>
-                <FontIcon
-                  className="zmdi zmdi-swap"
-                  color={Colors.grey50}></FontIcon>
-              </IconButton>
               <IconButton title="My Books" onTouchTap={this.goMyBooks}>
                 <FontIcon
                   className="zmdi zmdi-collection-bookmark"
@@ -51,6 +41,8 @@ ExchangePage = React.createClass({
                     <FontIcon className="zmdi zmdi-more-vert" color={Colors.grey50}></FontIcon>
                   </IconButton>
                 }>
+                <MenuItem primaryText="My Requests" onTouchTap={this.goMyRequests} />
+                <MenuItem primaryText="My Exchanges" onTouchTap={this.goMyExchanges} />
                 <MenuItem primaryText="Profile" onTouchTap={this.goProfile} />
                 <MenuItem primaryText="Sign Out" onTouchTap={this.handleSignOut} />
               </IconMenu>
@@ -88,7 +80,12 @@ ExchangePage = React.createClass({
     FlowRouter.go('/my-exchanges');
   },
 
+  goProfile() {
+    FlowRouter.go('/profile');
+  },
+
   handleSignOut() {
     Meteor.logout();
+    Session.set('church', null);
   }
 });

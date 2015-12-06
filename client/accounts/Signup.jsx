@@ -6,6 +6,8 @@ Signup = React.createClass({
       <Card>
         <CardTitle title="Sign Up" />
         <CardText>
+          <TextField hintText="Home Church" ref="church" />
+          <br />
           <TextField hintText="username" ref="username" />
           <br />
           <TextField hintText="Email" type="email" ref="email" />
@@ -22,11 +24,14 @@ Signup = React.createClass({
   },
 
   handleSignUp() {
+    let church = this.refs.church.getValue();
     let username = this.refs.username.getValue();
     let email = this.refs.email.getValue();
     let password = this.refs.pass.getValue();
     let passAgain = this.refs.passAgain.getValue();
-    if (! username) {
+    if (! church) {
+      this.refs.church.setErrorText("Home church cannot be blank!")
+    } else if (! username) {
       this.refs.username.setErrorText("username cannot be blank!")
     } else if(! email) {
       this.refs.email.setErrorText("email cannot be blank!")
@@ -37,8 +42,9 @@ Signup = React.createClass({
     } else if(password !== passAgain) {
       this.refs.passAgain.setErrorText("do not match password!")
     } else {
-      // set default weekly goal in profile
-      Accounts.createUser({username, email, password}, (err) => {
+      let profile = {church};
+      Accounts.createUser({username, email, password, profile}, (err) => {
+        Session.set('church', church);
         //TODO: display more error on sign up
         console.log(err);
       });
