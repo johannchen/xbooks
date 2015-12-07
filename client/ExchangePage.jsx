@@ -1,3 +1,9 @@
+Tracker.autorun(function() {
+  if (Meteor.user()) {
+    Session.set('church', Meteor.user().profile.church); 
+  }
+});
+
 let { AppBar,
   IconButton,
   FontIcon,
@@ -12,7 +18,7 @@ ExchangePage = React.createClass({
 
   getMeteorData() {
     return {
-      loaded: Meteor.subscribe('exchangeBooks').ready(),
+      loaded: Meteor.subscribe('exchangeBooks', Session.get('church')).ready(),
       books: Books.find({}, {sort: {"owners.createdAt": -1}}).fetch()
     }
   },

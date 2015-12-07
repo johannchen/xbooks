@@ -14,9 +14,10 @@ Profile = React.createClass({
   mixins: [ReactMeteorData],
 
   getMeteorData() {
+    let profile = Meteor.user() && Meteor.user().profile;
     return {
       currentUser: Meteor.user(),
-      profile: Meteor.user().profile
+      profile
     };
   },
 
@@ -64,6 +65,7 @@ Profile = React.createClass({
     } else {
       const profile = {name, church};
       Meteor.call('updateProfile', profile);
+      Meteor.call('updateBooks', church);
       Session.set('church', church);
       FlowRouter.go('/');
     }

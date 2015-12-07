@@ -9,7 +9,7 @@ Books = new Mongo.Collection('books', {
 
 
 Meteor.methods({
-  addBook(book) {
+  addBook(book, church) {
     let b = Books.findOne({isbn10: book.isbn10})
     if (b) {
       // add owner
@@ -31,12 +31,19 @@ Meteor.methods({
       gbook = book;
       gbook.owners = [{
         ownerId: Meteor.userId(),
-        church: Session.get('church'),
         exchange: true,
-        createdAt: Date.now()
+        createdAt: Date.now(),
+        church
       }];
       Books.insert(gbook);
     }
+  },
+
+  //update my books when change church
+  updateBooks(church) {
+    Books.update({"owners.ownerId": Meteor.userId()}, {
+      $set: {"owners.$.church": church}
+    }, {multi: true});
   },
 
   removeMyBook(id) {

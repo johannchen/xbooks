@@ -92,7 +92,7 @@ Book = React.createClass({
   },
 
   handleAddBook() {
-    Meteor.call('addBook', this.props.book);
+    Meteor.call('addBook', this.props.book, Session.get('church'));
     FlowRouter.go('/mybooks');
   },
 

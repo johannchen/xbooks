@@ -49,7 +49,7 @@ MyBooks = React.createClass({
   renderBooks() {
     return this.data.books.map( (mybook) => {
       let me = mybook.owners.filter( (owner) => { return owner.ownerId == Meteor.userId() } );
-      if (me[0].exchange === this.state.toExchange) {
+      if (me && me[0].exchange === this.state.toExchange) {
         return <Book book={mybook} toExchange={me[0].exchange} mybook={true} key={mybook._id} />;
       }
     });
