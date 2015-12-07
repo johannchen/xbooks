@@ -1,6 +1,6 @@
 Tracker.autorun(function() {
   if (Meteor.user()) {
-    Session.set('church', Meteor.user().profile.church); 
+    Session.set('church', Meteor.user().profile.church);
   }
 });
 
@@ -50,6 +50,8 @@ ExchangePage = React.createClass({
                 <MenuItem primaryText="My Requests" onTouchTap={this.goMyRequests} />
                 <MenuItem primaryText="My Exchanges" onTouchTap={this.goMyExchanges} />
                 <MenuItem primaryText="Profile" onTouchTap={this.goProfile} />
+                <MenuItem primaryText="FAQ" onTouchTap={this.goFaq} />
+                <MenuItem primaryText="Feedback" onTouchTap={this.goFeedback} />
                 <MenuItem primaryText="Sign Out" onTouchTap={this.handleSignOut} />
               </IconMenu>
             </div>
@@ -68,6 +70,14 @@ ExchangePage = React.createClass({
     return this.data.books.map( (book) => {
       return <Book book={book} toRequest={true} key={book._id} />;
     });
+  },
+
+  goFeedback() {
+    FlowRouter.go('/feedback');
+  },
+
+  goFaq() {
+    FlowRouter.go('/faq');
   },
 
   goMyBooks() {

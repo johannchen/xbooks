@@ -54,8 +54,6 @@ Login = React.createClass({
     let email = this.refs.email.getValue();
     let pass = this.refs.pass.getValue();
     Meteor.loginWithPassword(email, pass, (err) => {
-      Session.set('church', Meteor.user().profile.church);
-
       //TODO: check different error message
       if (err) {
         this.setState({loginErrMsg: "Login Failed, Please try again."});

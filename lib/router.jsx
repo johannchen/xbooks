@@ -13,10 +13,31 @@ FlowRouter.route('/', {
 FlowRouter.route('/profile', {
   name: 'profile',
   action: function(params) {
-    /* The key 'content' is now a function */
     ReactLayout.render(MainLayout, {
       content() {
         return <Profile />;
+      }
+    });
+  }
+});
+
+FlowRouter.route('/faq', {
+  name: 'faq',
+  action: function(params) {
+    ReactLayout.render(MainLayout, {
+      content() {
+        return <Faq />;
+      }
+    });
+  }
+});
+
+FlowRouter.route('/feedback', {
+  name: 'feedback',
+  action: function(params) {
+    ReactLayout.render(MainLayout, {
+      content() {
+        return <Feedback />;
       }
     });
   }

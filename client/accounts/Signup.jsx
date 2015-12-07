@@ -6,7 +6,7 @@ Signup = React.createClass({
       <Card>
         <CardTitle title="Sign Up" />
         <CardText>
-          <TextField hintText="Home Church" ref="church" />
+          <TextField floatingLabelText="Home Church" defaultValue="Oakland CIBC" ref="church" />
           <br />
           <TextField hintText="username" ref="username" />
           <br />
@@ -44,7 +44,7 @@ Signup = React.createClass({
     } else {
       let profile = {church};
       Accounts.createUser({username, email, password, profile}, (err) => {
-        Session.set('church', church);
+        // Session.set('church', church);
         //TODO: display more error on sign up
         console.log(err);
       });

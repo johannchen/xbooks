@@ -58,9 +58,13 @@ AddBook = React.createClass({
   },
 
   renderGbooks() {
-    return this.data.gbooks.map( (book) => {
-      return <Book book={book} key={book._id} add={true} />;
-    });
+    if (this.data.gbooks.length === 0) {
+      return "Sorry, no book found.";
+    } else {
+      return this.data.gbooks.map( (book) => {
+        return <Book book={book} key={book._id} add={true} />;
+      });
+    }
   },
 
   goHome() {
