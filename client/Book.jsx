@@ -42,6 +42,7 @@ Book = React.createClass({
                   defaultChecked={this.props.toExchange}
                   onCheck={this.toggleExchange} />
                 <FlatButton label="Remove Book" onTouchTap={this.handleRemoveMyBook} />
+                <FlatButton label="Edit Book" onTouchTap={this.goEditBook} />
               </div>
               :
               <div>
@@ -89,6 +90,10 @@ Book = React.createClass({
         return <Comment key={comment.id} comment={comment} bookId={bookId} />;
       });
     }
+  },
+
+  goEditBook() {
+    FlowRouter.go(`/edit-book/${this.props.book._id}`);
   },
 
   handleAddBook() {

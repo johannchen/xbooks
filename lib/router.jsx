@@ -43,6 +43,20 @@ FlowRouter.route('/feedback', {
   }
 });
 
+FlowRouter.route('/edit-book/:_id', {
+  name: 'edit-book',
+  subscriptions: function(params) {
+    this.register('book', Meteor.subscribe('book', params._id));
+  },
+  action: function(params) {
+    ReactLayout.render(MainLayout, {
+      content() {
+        return <EditBook bookId={params._id} />;
+      }
+    });
+  }
+});
+
 FlowRouter.route('/add-book', {
   name: 'add-book',
   action: function(params) {

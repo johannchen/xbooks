@@ -39,6 +39,12 @@ Meteor.methods({
     }
   },
 
+  updateBook(id, book) {
+    Books.update(id, {
+      $set: book
+    });
+  },
+
   //update my books when change church
   updateBooks(church) {
     Books.update({"owners.ownerId": Meteor.userId()}, {

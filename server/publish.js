@@ -2,6 +2,10 @@ Meteor.publish("mybooks", function(toExchange) {
   return Books.find({"owners.ownerId": this.userId, "owners.exchange": toExchange});
 });
 
+Meteor.publish("book", function(id) {
+  return Books.find({_id: id});
+});
+
 Meteor.publish("searchBooks", function(query) {
   // TODO: query isbn
   // filter books by site (zip, church, friends)?
