@@ -26,7 +26,7 @@ Book = React.createClass({
             title={this.props.book.title}
             subtitle={this.authors()} />
           <CardText>
-            <a href={this.props.book.previewLink}>
+            <a href={this.props.book.previewLink} target="_blank">
               <img style={{float: "left", marginRight: "15px", marginBottom: "5px"}}
                 src={this.props.book.thumb} />
             </a>

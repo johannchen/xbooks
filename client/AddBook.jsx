@@ -39,6 +39,7 @@ AddBook = React.createClass({
               <TextField
                 hintText="Search Book Then Add"
                 ref="search"
+                autoFocus={true}
                 underlineFocusStyle={{borderColor: Colors.amber900}}
                 onEnterKeyDown={this.handleSearch} />
             </div>

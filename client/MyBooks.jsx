@@ -12,7 +12,7 @@ MyBooks = React.createClass({
 
   getMeteorData() {
     return {
-      loaded: Meteor.subscribe('mybooks').ready(),
+      loaded: Meteor.subscribe('mybooks', this.state.toExchange).ready(),
       books: Books.find({}, {sort: {"owners.createdAt": -1}}).fetch()
     }
   },
@@ -22,13 +22,13 @@ MyBooks = React.createClass({
         { this.data.loaded ?
           <div>
             <AppBar
-              title="My Books"
+              title={this.getTitle()}
               iconElementLeft={<IconButton iconClassName="zmdi zmdi-plus" onTouchTap={this.goAddBook}></IconButton>}
               iconElementRight={
                 <div>
                   <IconButton title="Toggle Filter" onTouchTap={this.toggleToExchange}>
                     <FontIcon
-                      className="zmdi zmdi-check"
+                      className={this.state.toExchange ? "zmdi zmdi-square-o" : "zmdi zmdi-check"}
                       color={Colors.grey50}></FontIcon>
                   </IconButton>
                   <IconButton title="Home" onTouchTap={this.goHome}>
@@ -48,11 +48,14 @@ MyBooks = React.createClass({
 
   renderBooks() {
     return this.data.books.map( (mybook) => {
-      let me = mybook.owners.filter( (owner) => { return owner.ownerId == Meteor.userId() } );
-      if (me[0] && me[0].exchange === this.state.toExchange) {
-        return <Book book={mybook} toExchange={me[0].exchange} mybook={true} key={mybook._id} />;
-      }
+      return <Book book={mybook} toExchange={this.state.toExchange} mybook={true} key={mybook._id} />;
     });
+  },
+
+  getTitle() {
+    let toExchange = "not for Exchange";
+    if (this.state.toExchange) {toExchange = "to Exchange";}
+    return `My Books ${toExchange} (${this.data.books.length})`;
   },
 
   goAddBook() {

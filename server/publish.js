@@ -1,5 +1,5 @@
-Meteor.publish("mybooks", function() {
-  return Books.find({"owners.ownerId": this.userId});
+Meteor.publish("mybooks", function(toExchange) {
+  return Books.find({"owners.ownerId": this.userId, "owners.exchange": toExchange});
 });
 
 Meteor.publish("searchBooks", function(query) {
