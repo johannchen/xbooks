@@ -28,26 +28,8 @@ MyExchanges = React.createClass({
       <div>
         <AppBar
           title="My Exchanges"
-          iconElementLeft={<IconButton iconClassName="material-icons" onTouchTap={this.goHome}>home</IconButton>}
-          iconElementRight={
-            <div>
-              <IconButton title="My Response" onTouchTap={this.goMyResponse}>
-                <FontIcon
-                  className="material-icons"
-                  color={Colors.grey50}>access_alarm</FontIcon>
-              </IconButton>
-              <IconButton title="My Requests" onTouchTap={this.goMyRequests}>
-                <FontIcon
-                  className="material-icons"
-                  color={Colors.grey50}>swap_vert</FontIcon>
-              </IconButton>
-              <IconButton title="My Books" onTouchTap={this.goMyBooks}>
-                <FontIcon
-                  className="material-icons"
-                  color={Colors.grey50}>collections_book</FontIcon>
-              </IconButton>
-            </div>
-          } />
+          iconElementLeft={<IconButton iconClassName="zmdi zmdi-home" onTouchTap={this.goHome}></IconButton>}
+          />
         { this.data.loaded ?
           <Table selectable={false}>
             <TableHeader displaySelectAll={false}>
@@ -76,17 +58,5 @@ MyExchanges = React.createClass({
 
   goHome() {
     FlowRouter.go('/');
-  },
-
-  goMyBooks() {
-    FlowRouter.go('/mybooks');
-  },
-
-  goMyRequests() {
-    FlowRouter.go('/my-requests');
-  },
-
-  goMyResponse() {
-    FlowRouter.go('/my-response');
-  },
+  }
 });
