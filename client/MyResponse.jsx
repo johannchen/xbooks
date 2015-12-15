@@ -6,7 +6,7 @@ MyResponse = React.createClass({
   mixins: [ReactMeteorData],
 
   getMeteorData() {
-    let loaded = Meteor.subscribe('mybooks').ready() && Meteor.subscribe('myResponse').ready();
+    let loaded = Meteor.subscribe('mybooks', true).ready() && Meteor.subscribe('myResponse').ready();
     return {
       loaded,
       exchanges: Exchanges.find({}, {sort: {requestAt: -1}}).fetch()
