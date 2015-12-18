@@ -27,7 +27,7 @@ Faq = React.createClass({
         <Card>
           <CardText>
             <h2>Can I deny someone's request for my book?</h2>
-            <p>Yes, you can by hitting the "Deny" button.</p>
+            <p>Yes, you can, by hitting the "Deny" button.</p>
           </CardText>
         </Card>
         <Card>
@@ -38,8 +38,8 @@ Faq = React.createClass({
         </Card>
         <Card>
           <CardText>
-            <h2>I found the information of the book I added is incomplete, what shall I do?</h2>
-            <p>You can edit the book with the accurate infomation. Make sure you edit the the right book by checking with the ISBN.</p>
+            <h2>The information on a book I added is incomplete. What shall I do?</h2>
+            <p>You can edit the book with the accurate infomation. Make sure the ISBN matched.</p>
           </CardText>
         </Card>
 

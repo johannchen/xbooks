@@ -53,8 +53,8 @@ MyBooks = React.createClass({
   },
 
   getTitle() {
-    let toExchange = "Not for Exchange";
-    if (this.state.toExchange) {toExchange = "to Exchange";}
+    let toExchange = "Not For Exchange";
+    if (this.state.toExchange) {toExchange = "For Exchange";}
     return `My Books ${toExchange} (${this.data.books.length})`;
   },
 

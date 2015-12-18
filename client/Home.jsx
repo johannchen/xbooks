@@ -1,5 +1,4 @@
 let {
-  AppCanvas,
   AppBar,
   IconMenu,
   IconButton,
@@ -43,7 +42,7 @@ Home = React.createClass({
                   <RaisedButton label="Sign In" onTouchTap={this.handleSignIn}  />
                 </div>
               } />
-            <p>Christian Books Exchange within Your Church.</p>
+            <p>Christian Book Exchange Within Your Church.</p>
             <AccountsMUI signin={this.state.signin}/>
           </div>
         }

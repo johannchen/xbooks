@@ -1,6 +1,3 @@
-let { AppBar, IconButton, FontIcon, Styles } = MUI;
-let { Colors } = Styles;
-
 MyResponse = React.createClass({
   // This mixin makes the getMeteorData method work
   mixins: [ReactMeteorData],
@@ -16,23 +13,7 @@ MyResponse = React.createClass({
   render() {
     return (
       <div>
-        <AppBar
-          title="My Response"
-          iconElementLeft={<IconButton iconClassName="zmdi zmdi-home" onTouchTap={this.goHome}></IconButton>}
-          iconElementRight={
-            <div>
-              <IconButton title="My Requests" onTouchTap={this.goMyRequests}>
-                <FontIcon
-                  className="zmdi zmdi-swap-vertical"
-                  color={Colors.grey50}></FontIcon>
-              </IconButton>
-              <IconButton title="My Books" onTouchTap={this.goMyBooks}>
-                <FontIcon
-                  className="zmdi zmdi-collection-bookmark"
-                  color={Colors.grey50}></FontIcon>
-              </IconButton>
-            </div>
-          } />
+        <Nav title="My Response" />
         { this.data.loaded ?
           <div>
             {this.renderExchanges()}
@@ -45,19 +26,7 @@ MyResponse = React.createClass({
 
   renderExchanges() {
     return this.data.exchanges.map( (exchange) => {
-      return <Exchange exchange={exchange} book={exchange.responderBook} response={true} key={exchange._id} />;
+      return exchange.responderBook && <Exchange exchange={exchange} book={exchange.responderBook} response={true} key={exchange._id} />;
     });
-  },
-
-  goHome() {
-    FlowRouter.go('/');
-  },
-
-  goMyBooks() {
-    FlowRouter.go('/mybooks');
-  },
-
-  goMyRequests() {
-    FlowRouter.go('/my-requests');
   }
 });

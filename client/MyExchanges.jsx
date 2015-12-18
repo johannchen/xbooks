@@ -1,15 +1,10 @@
 let {
-  AppBar,
-  IconButton,
-  FontIcon,
-  Styles,
   Table,
   TableHeader,
   TableHeaderColumn,
   TableBody,
   TableRow
 } = MUI;
-let { Colors } = Styles;
 
 MyExchanges = React.createClass({
   // This mixin makes the getMeteorData method work
@@ -26,10 +21,7 @@ MyExchanges = React.createClass({
   render() {
     return (
       <div>
-        <AppBar
-          title="My Exchanges"
-          iconElementLeft={<IconButton iconClassName="zmdi zmdi-home" onTouchTap={this.goHome}></IconButton>}
-          />
+        <Nav title="My Exchanges" />
         { this.data.loaded ?
           <Table selectable={false}>
             <TableHeader displaySelectAll={false}>
@@ -54,9 +46,5 @@ MyExchanges = React.createClass({
     return this.data.exchanges.map( (exchange) => {
       return <ExchangeInfo exchange={exchange} key={exchange._id} />;
     });
-  },
-
-  goHome() {
-    FlowRouter.go('/');
   }
 });
