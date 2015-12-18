@@ -41,8 +41,8 @@ Book = React.createClass({
                   label="to exchange"
                   defaultChecked={this.props.toExchange}
                   onCheck={this.toggleExchange} />
-                <FlatButton label="Remove Book" onTouchTap={this.handleRemoveMyBook} />
-                <FlatButton label="Edit Book" onTouchTap={this.goEditBook} />
+                <IconButton iconClassName="zmdi zmdi-delete" tooltip="Remove Book" onTouchTap={this.handleRemoveMyBook} />
+                <IconButton iconClassName="zmdi zmdi-edit" tooltip="Edit Book" onTouchTap={this.goEditBook} />
               </div>
               :
               <div>
